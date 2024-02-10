@@ -5,7 +5,7 @@ Mapbox Style Spec/MapLibre Style Spec 用です。
 
 ## 変換ツール
 
-`convert.js` が変換ツールです。変換元・変換先の `style.json` （Mapbox Style Spec/MapLibre Style Spec 準拠）は、ハードコードされています。
+`convert.js` が変換ツールです。変換元・変換先の `style.json` （Mapbox Style Spec/MapLibre Style Spec 準拠）のパスはハードコードされています。
 
 ```
 node convert.js
