@@ -6,13 +6,7 @@ const layers = style.layers;
 
 const scale = 2;
 
-const scaleInterpolateStyle = (expression, arr=[], scale) => {
-  if(Array.isArray(expression) && expression[0] != "interpolate"){
-    expression.forEach( expressionElement => {
-      arr.push(scaleInterpolateStyle(expressionElement, [], scale));
-    });
-    return arr;
-  }else if(Array.isArray(expression) && expression[0] == "interpolate"){
+const scaleInterpolateStyle = (expression, arr=[], scale) => {if(Array.isArray(expression) && expression[0] == "interpolate"){
     
     //const expname = expression[0];
     //const interpolation = expression[1];
@@ -26,11 +20,19 @@ const scaleInterpolateStyle = (expression, arr=[], scale) => {
     
   }else if(Array.isArray(expression) && expression[0] == "step"){
     
-    for(let i = 3; i < expression.length; i = i + 2){
+    for(let i = 2; i < expression.length; i = i + 2){
       expression[i] = ["*", scale, expression[i]];
     }
     
     return expression;
+    
+  }else if(Array.isArray(expression) && expression[0] != "interpolate"){
+    
+    expression.forEach( expressionElement => {
+      arr.push(scaleInterpolateStyle(expressionElement, [], scale));
+    });
+    
+    return arr;
     
   }else{
     return expression;
@@ -54,7 +56,7 @@ switchConvertOperation = (expression, scale) => {
   console.log("--------------------------------");
   console.log(expression);
   
-  const count = isKeywordUsed(expression, "interpolate") + isKeywordUsed(expression, "step");
+  const count = isKeywordUsed(expression, "zoom");
   console.log(`<<<${count}>>>`);
   
   if(count > 0){
@@ -82,7 +84,7 @@ layers.forEach( layer => {
       
       if(name.match("opacity")){
         const info = layer.paint[name];
-        const count = isKeywordUsed(info, "interpolate") + isKeywordUsed(info, "step");
+        const count = isKeywordUsed(info, "zoom");
         if(count > 0) layer.paint[name] = 1;
       }
       
@@ -100,6 +102,6 @@ layers.forEach( layer => {
   
 });
 
-const resstring = JSON.stringify(style);
+const resstring = JSON.stringify(style, null, 2);
 fs.writeFileSync(`./docs/style.json`, resstring);
 
