@@ -3,6 +3,8 @@
 
 Mapbox Style Spec/MapLibre Style Spec 用です。
 
+blog: https://qiita.com/mg_kudo/items/2addfe3bc7d8ab252b25
+
 ## 変換ツール
 
 `convert.js` が変換ツールです。変換元・変換先の `style.json` （Mapbox Style Spec/MapLibre Style Spec 準拠）のパスはハードコードされています。
